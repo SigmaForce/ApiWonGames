@@ -10,6 +10,7 @@
   "scripts": {
     "build": "strapi build",
     "develop": "strapi develop",
+    "postinstall": "patch-package",
     "services:build": "docker-compose build",
     "services:stop": "docker-compose stop",
     "services:up": "docker-compose up -d",
@@ -23,10 +24,13 @@
     "@strapi/plugin-i18n": "4.24.4",
     "@strapi/plugin-users-permissions": "4.24.4",
     "@strapi/strapi": "4.24.4",
+    "jsdom": "^24.1.0",
+    "patch-package": "^8.0.0",
     "pg": "^8.8.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "5.3.4",
+    "slugify": "^1.6.6",
     "styled-components": "5.3.3"
   },
   "engines": {
