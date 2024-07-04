@@ -788,6 +788,44 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiBannerBanner extends Schema.CollectionType {
+  collectionName: 'banners';
+  info: {
+    singularName: 'banner';
+    pluralName: 'banners';
+    displayName: 'banner';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    image: Attribute.Media<'images'> & Attribute.Required;
+    title: Attribute.String & Attribute.Required;
+    subtitle: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        maxLength: 150;
+      }>;
+    button: Attribute.Component<'page.button'>;
+    ribbon: Attribute.Component<'page.ribbon'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::banner.banner',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::banner.banner',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiCategoryCategory extends Schema.CollectionType {
   collectionName: 'categories';
   info: {
@@ -917,6 +955,31 @@ export interface ApiGameGame extends Schema.CollectionType {
   };
 }
 
+export interface ApiHomeHome extends Schema.SingleType {
+  collectionName: 'homes';
+  info: {
+    singularName: 'home';
+    pluralName: 'homes';
+    displayName: 'home';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    newGames: Attribute.Component<'page.section'>;
+    upcommingGames: Attribute.Component<'page.section'>;
+    freeGames: Attribute.Component<'page.section'>;
+    popularGames: Attribute.Component<'page.popular-games'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::home.home', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::home.home', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPlatformPlatform extends Schema.CollectionType {
   collectionName: 'platforms';
   info: {
@@ -1005,9 +1068,11 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::banner.banner': ApiBannerBanner;
       'api::category.category': ApiCategoryCategory;
       'api::developer.developer': ApiDeveloperDeveloper;
       'api::game.game': ApiGameGame;
+      'api::home.home': ApiHomeHome;
       'api::platform.platform': ApiPlatformPlatform;
       'api::publisher.publisher': ApiPublisherPublisher;
     }

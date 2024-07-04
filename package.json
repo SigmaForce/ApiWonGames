@@ -9,6 +9,7 @@
   },
   "scripts": {
     "build": "strapi build",
+    "content:type": "strapi ts:generate-types",
     "develop": "strapi develop",
     "postinstall": "patch-package",
     "services:build": "docker-compose build",
